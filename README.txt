@@ -23,3 +23,6 @@ http://localhost:9200/_jamo?text=카카오페이&token=KORTOENG
 
 Response)
 zkzkdhvpdl
+
+Build)
+$ mvn clean install -DskipTests=true
