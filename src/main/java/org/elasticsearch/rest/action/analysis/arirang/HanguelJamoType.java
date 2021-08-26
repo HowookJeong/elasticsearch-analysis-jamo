@@ -3,6 +3,7 @@ package org.elasticsearch.rest.action.analysis.arirang;
 public enum HanguelJamoType {
   JAMO("JAMO"),
   CHOSUNG("CHOSUNG"),
+  CHOSUNGDTOS("CHOSUNGDTOS"),
   JUNGSUNG("JUNGSUNG"),
   JONGSUNG("JONGSUNG"),
   KORTOENG("KORTOENG");

@@ -81,6 +81,9 @@ public class HanguelJamoMorphTokenizer {
       case "CHOSUNG":
         jamo = chosungTokenizer(source);
         break;
+      case "CHOSUNGDTOS":
+        jamo = doubleChosungTokenizer(source);
+        break;
       case "JUNGSUNG":
         jamo = jungsungTokenizer(source);
         break;
@@ -151,6 +154,56 @@ public class HanguelJamoMorphTokenizer {
     }
 
     return chosung;
+  }
+
+  public String doubleChosungTokenizer(String source) {
+    String chosung = "";
+    int criteria;
+    char sourceChar;
+    char choIdx;
+
+    for (int i = 0; i < source.length(); i++) {
+      sourceChar = source.charAt(i);
+
+      if (sourceChar >= 0xAC00) {
+        criteria = (sourceChar - 0xAC00);
+        choIdx = (char) (((criteria - (criteria % 28)) / 28) / 21);
+
+        chosung = chosung + chosungDoubleToSingle(String.valueOf(CHOSUNG[choIdx]));
+      } else {
+        if (isPossibleCharacter(sourceChar)) {
+          chosung = chosung + chosungDoubleToSingle(String.valueOf(sourceChar));
+        }
+      }
+    }
+
+    return chosung;
+  }
+
+  public String chosungDoubleToSingle(String chosung) {
+    String single = "";
+
+    switch (chosung) {
+      case "ㄲ" :
+        single = "ㄱㄱ";
+        break;
+      case "ㄸ" :
+        single = "ㄷㄷ";
+        break;
+      case "ㅃ" :
+        single = "ㅂㅂ";
+        break;
+      case "ㅆ" :
+        single = "ㅅㅅ";
+        break;
+      case "ㅉ" :
+        single = "ㅈㅈ";
+        break;
+      default :
+        single = chosung;
+    }
+
+    return single;
   }
 
   public String jungsungTokenizer(String source) {
